@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donazione - Trasfusionale Jesi</title>
   <link rel="stylesheet" href="../css/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="../js/highcharts.js"> </script>
+<script src="../js/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="../js/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="../js/accessibility.js"></script>
 </head>
 <body>
 
@@ -51,8 +59,11 @@
 <main class="main-content">
   <!-- Hero Section (senza bottoni) -->
   <section class="hero-section showcase">
-    <img src="../img-donazione-hero.jpg" alt="Sala Donazioni Trasfusionale Jesi" class="showcase-video">
-    
+    <video class="showcase-video" autoplay loop muted playsinline poster="anteprima-hero.jpg">
+    <source src="../images/don.webm" type="video/webm">
+    <!-- Facoltativo: tieni anche l'mp4 sotto se vuoi compatibilità con vecchi iPhone -->
+    <source src="nome-tuo-video.mp4" type="video/mp4">
+  </video>
     <div class="hero-container showcase-content">
       <span class="hero-badge">Area Donatori • Jesi</span>
       <h1>Donazione di Sangue ed Emocomponenti</h1>
@@ -70,6 +81,7 @@
       <div class="feature-grid">
         
         <!-- 1. Card Statistiche (porta a statistiche.html) -->
+               <!-- 1. Card Statistiche (apre l'accordion sotto con il grafico) -->
         <div class="feature-card">
           <div class="feature-card-body">
             <div class="feature-icon">
@@ -79,13 +91,16 @@
             </div>
             <h3 class="feature-title">Statistiche Donazioni</h3>
             <p class="feature-text">
-              Consulta i dati aggiornati sull'attività di raccolta del Centro Trasfusionale di Jesi: sangue intero, plasmaferesi e andamento annuale.
+              Consulta l'andamento mensile delle donazioni a Jesi (2024–2026) con il grafico interattivo e i confronti annuali.
             </p>
             <div class="card-footer-btn">
-              <a href="statistiche.html" class="nav-btn primary">Vedi le Statistiche</a>
+              <button type="button" class="nav-btn primary" onclick="apriAccordionDonazione('acc-statistiche')">
+                Vedi Grafico Statistiche ↓
+              </button>
             </div>
           </div>
         </div>
+
 
         <!-- 2. Card Prima Donazione + Bottone Criteri -->
         <div class="feature-card">
@@ -163,7 +178,41 @@
           </div>
         </div>
       </div>
+<!-- 3. ACCORDION CON I GRAFICI HIGHCHARTS (in fondo) -->
+      <div class="feature-card info-detail-box" id="sezione-accordion-donazione" style="padding: 0; overflow: hidden;">
+        <details class="custom-accordion" id="acc-statistiche" style="border: none; border-radius: 0;">
+          <summary class="accordion-header" style="padding: clamp(20px, 3.5vw, 28px) clamp(24px, 4vw, 32px);">
+            <div>
+              <span class="section-badge" style="margin-bottom: 4px;">Dati e Confronti Annuali</span>
+              <h3 class="feature-title" style="margin: 0;">Grafico Statistiche Donazioni (2024 - 2026)</h3>
+            </div>
+            <span class="accordion-icon">+</span>
+          </summary>
 
+          <div class="accordion-body">
+            <!-- Contenitore unico dove cambiano i 3 grafici Highcharts -->
+            <div id="container" style="width: 100%; height: 440px; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden;"></div>
+
+            <!-- Barra dei 3 bottoni per cambiare grafico -->
+            <div class="chart-switcher">
+              <button type="button" class="nav-btn primary chart-tab active" onclick="cambiaGrafico('totale', this)">
+                1. Donazioni Totali (2024-2026)
+              </button>
+              <button type="button" class="nav-btn secondary chart-tab" onclick="cambiaGrafico('uscite', this)">
+                2. Andamento Uscite (Periferia)
+              </button>
+              <button type="button" class="nav-btn secondary chart-tab" onclick="cambiaGrafico('rapporto', this)">
+                3. Rapporto Periferia / Totale
+              </button>
+            </div>
+
+            <!-- Bottone di ritorno alle card sopra -->
+            <div class="back-top-wrapper">
+              <a href="#cards-donazione" class="nav-btn secondary">↑ Torna alle schede sopra</a>
+            </div>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 </main>
@@ -187,6 +236,166 @@
       <p class="copyright">© 2026 Jesi UO - Servizio Immunotrasfusionale. Tutti i diritti riservati.</p>
     </div>
   </footer>
+<script>
+var chart = null;
+
+var donazioni2026 = [803, 855, 899, 793, 855, 824, 859, 681, 819, null, null, null];
+var donazioni2025 = [849, 832, 871, 818, 945, 803, 822, 772, 866, null, null, null];
+var donazioni2024 = [790, 810, 850, 800, 910, 780, 810, 790, 840, null, null, null];
+
+var uscite2026 = '11,14,15,12,15,11,15,11,13,15,17,12'.split(',').map(Number);
+var uscite2025 = '13,14,14,14,15,13,14,12,15,16,15,12'.split(',').map(Number);
+var uscite2024 = '13,14,13,13,14,13,14,11,15,14,15,10'.split(',').map(Number);
+
+var percPeriferia2026 = [20.42, 23.98, 23.69, 22.32, 25.15, 21.60, 23.86, 20.12, 21.86, null, null, null];
+
+function calcolaTotale(arrayDati) {
+    var somma = 0;
+    for (var i = 0; i < arrayDati.length; i++) {
+        if (arrayDati[i] !== null && arrayDati[i] !== undefined) {
+            somma += (typeof arrayDati[i] === 'object') ? arrayDati[i].y : arrayDati[i];
+        }
+    }
+    return somma;
+}
+
+function renderGrafico(tipo) {
+    if (chart) chart.destroy();
+
+    if (tipo === 'totale') {
+        var t26 = calcolaTotale(donazioni2026);
+        var t25 = calcolaTotale(donazioni2025);
+        var t24 = calcolaTotale(donazioni2024);
+        var d26_25 = t26 - t25; 
+        var d25_24 = t25 - t24; 
+
+        chart = Highcharts.chart('container', {
+            chart: { type: 'spline', reflow: false, backgroundColor: '#ffffff', borderRadius: 16, spacingTop: 20, spacingBottom: 20, spacingLeft: 15, spacingRight: 15 },
+            title: { text: 'Donazioni Mensili Gen.-Set 2026', style: { color: '#1e293b' } },
+            xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Totale 2026', 'Totale 2025', 'Totale 2024'], crosshair: true },
+            yAxis: [{ title: { text: 'Donazioni Mensili' } }, { title: { text: 'Somma Totale' }, opposite: true }],
+            tooltip: { shared: true },
+            plotOptions: { column: { pointWidth: 30, pointPadding: 0.05, groupPadding: 0.1, dataLabels: { enabled: true, format: '{y}', y: -10, style: { fontWeight: 'bold' } } } },
+            series: [
+                { name: '2026', marker: { symbol: 'square' }, yAxis: 0, data: donazioni2026.concat([null, null, null]) },
+                { name: '2025', marker: { symbol: 'diamond' }, yAxis: 0, data: donazioni2025.concat([null, null, null]) },
+                { name: '2024', marker: { symbol: 'triangle' }, yAxis: 0, data: donazioni2024.concat([null, null, null]) },
+                { type: 'column', name: 'Totale 2026', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, t26, null, null], color: '#6366f1', showInLegend: false },
+                { type: 'column', name: 'Totale 2025', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, null, t25, null], color: '#475569', showInLegend: false },
+                { type: 'column', name: 'Totale 2024', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, null, null, t24], color: '#10b981', showInLegend: false },
+                {
+                    type: 'line', name: 'Diff 2026-2025', yAxis: 1, dashStyle: 'ShortDash', color: '#ba2d29', lineWidth: 2, showInLegend: false, marker: { enabled: false },
+                    data: [{ x: 12, y: t26 }, { x: 12.5, y: t26, dataLabels: { enabled: true, useHTML: true, format: '<span style="color:#ba2d29; font-weight:bold;">D: ' + (d26_25 > 0 ? '+' : '') + d26_25 + '</span>', y: 20, align: 'center' } }, { x: 13, y: t26 }]
+                },
+                {
+                    type: 'line', name: 'Diff 2025-2024', yAxis: 1, dashStyle: 'ShortDash', color: '#ba2d29', lineWidth: 2, showInLegend: false, marker: { enabled: false },
+                    data: [{ x: 13, y: t25 }, { x: 13.5, y: t25, dataLabels: { enabled: true, useHTML: true, format: '<span style="color:#ba2d29; font-weight:bold;">D: ' + (d25_24 > 0 ? '+' : '') + d25_24 + '</span>', y: 20, align: 'center' } }, { x: 14, y: t25 }]
+                }
+            ],
+            responsive: {
+                rules: [{
+                    condition: { maxWidth: 600 },
+                    chartOptions: {
+                        chart: { spacingLeft: 5, spacingRight: 25, marginRight: 35 },
+                        plotOptions: { column: { pointPadding: 0.02, groupPadding: 0.05, dataLabels: { enabled: true, rotation: -90, align: 'right', y: 15, allowOverlap: true, crop: false, overflow: 'none', style: { fontSize: '11px', fontWeight: 'bold', textOutline: 'none' } } } },
+                        series: [{}, {}, {}, {}, {}, {}, { visible: false }, { visible: false }]
+                    }
+                }]
+            }
+        });
+    }
+    else if (tipo === 'uscite') {
+        var u26 = calcolaTotale(uscite2026);
+        var u25 = calcolaTotale(uscite2025);
+        var u24 = calcolaTotale(uscite2024);
+        var du26_25 = u26 - u25; 
+        var du25_24 = u25 - u24; 
+
+        chart = Highcharts.chart('container', {
+            chart: { type: 'spline', reflow: false, backgroundColor: '#ffffff', borderRadius: 16, spacingTop: 20, spacingBottom: 20, spacingLeft: 15, spacingRight: 15 },
+            title: { text: 'Uscite Mensili', style: { color: '#1e293b' } },
+            xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Totale 2026', 'Totale 2025', 'Totale 2024'], crosshair: true },
+            yAxis: [{ title: { text: 'N° Uscite' } }, { title: { text: 'Somma Totale' }, opposite: true }],
+            tooltip: { shared: true },
+            plotOptions: { column: { pointWidth: 30, pointPadding: 0.05, groupPadding: 0.1, dataLabels: { enabled: true, format: '{y}', y: -10, style: { fontWeight: 'bold' } } } },
+            series: [
+                { name: '2026', marker: { symbol: 'square' }, yAxis: 0, color: '#3399FF', data: uscite2026.concat([null, null, null]) },
+                { name: '2025', marker: { symbol: 'diamond' }, yAxis: 0, color: '#FF5733', data: uscite2025.concat([null, null, null]) },
+                { name: '2024', marker: { symbol: 'triangle' }, yAxis: 0, color: '#2ECC71', data: uscite2024.concat([null, null, null]) },
+                { type: 'column', name: 'Totale 2026', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, u26, null, null], color: '#3399FF', showInLegend: false },
+                { type: 'column', name: 'Totale 2025', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, null, u25, null], color: '#FF5733', showInLegend: false },
+                { type: 'column', name: 'Totale 2024', yAxis: 1, data: [null,null,null,null,null,null,null,null,null,null,null,null, null, null, u24], color: '#2ECC71', showInLegend: false },
+                {
+                    type: 'line', name: 'Diff 2026-2025', yAxis: 1, dashStyle: 'ShortDash', color: '#ba2d29', lineWidth: 2, showInLegend: false, marker: { enabled: false },
+                    data: [{ x: 12, y: u26 }, { x: 12.5, y: u26, dataLabels: { enabled: true, useHTML: true, format: '<span style="color:#ba2d29; font-weight:bold;">D: ' + (du26_25 > 0 ? '+' : '') + du26_25 + '</span>', y: 20, align: 'center' } }, { x: 13, y: u26 }]
+                },
+                {
+                    type: 'line', name: 'Diff 2025-2024', yAxis: 1, dashStyle: 'ShortDash', color: '#ba2d29', lineWidth: 2, showInLegend: false, marker: { enabled: false },
+                    data: [{ x: 13, y: u25 }, { x: 13.5, y: u25, dataLabels: { enabled: true, useHTML: true, format: '<span style="color:#ba2d29; font-weight:bold;">D: ' + (du25_24 > 0 ? '+' : '') + du25_24 + '</span>', y: 20, align: 'center' } }, { x: 14, y: u25 }]
+                }
+            ],
+            responsive: {
+                rules: [{
+                    condition: { maxWidth: 600 },
+                    chartOptions: {
+                        chart: { spacingLeft: 5, spacingRight: 25, marginRight: 35 },
+                        plotOptions: { column: { pointPadding: 0.02, groupPadding: 0.05, dataLabels: { enabled: true, rotation: -90, align: 'right', y: 15, allowOverlap: true, crop: false, overflow: 'none', style: { fontSize: '11px', fontWeight: 'bold', textOutline: 'none' } } } },
+                        series: [{}, {}, {}, {}, {}, {}, { visible: false }, { visible: false }]
+                    }
+                }]
+            }
+        });
+    }
+    else if (tipo === 'rapporto') {
+        chart = Highcharts.chart('container', {
+            chart: { type: 'line', backgroundColor: '#ffffff', borderRadius: 16, spacingTop: 20, spacingBottom: 20 },
+            title: { text: '% Donazione in periferia in confronto a totale', style: { color: '#1e293b' } },
+            subtitle: { text: 'Gen.-Set 2026' },
+            xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] },
+            yAxis: { title: { text: '%' } },
+            plotOptions: {
+                line: { dataLabels: { enabled: true }, enableMouseTracking: false }
+            },
+            series: [{ name: '% Donazioni', data: percPeriferia2026 }]
+        });
+    }
+}
+
+function cambiaGrafico(tipo, btnCliccato) {
+    document.querySelectorAll('.chart-tab').forEach(btn => {
+        btn.classList.remove('primary', 'active');
+        btn.classList.add('secondary');
+    });
+    btnCliccato.classList.remove('secondary');
+    btnCliccato.classList.add('primary', 'active');
+    renderGrafico(tipo);
+}
+
+function apriAccordionDonazione(idTarget) {
+    const acc = document.getElementById(idTarget);
+    if (acc) {
+        acc.open = true;
+        acc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+renderGrafico('totale');
+
+var containerElement = document.getElementById('container');
+if (containerElement) {
+    var resizeObserver = new ResizeObserver(function(entries) {
+        for (var entry of entries) {
+            var width = entry.contentRect.width;
+            if (width > 0 && chart) {
+                chart.setSize(width, chart.chartHeight, false);
+            }
+        }
+    });
+    resizeObserver.observe(containerElement);
+}
+</script>
+
+
 
 </body>
 </html>

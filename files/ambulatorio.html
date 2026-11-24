@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ambulatorio Trasfusionale - Trasfusionale Jesi</title>
   <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="../js/highcharts.js"> </script>
+<script src="../js/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="../js/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="../js/accessibility.js"></script>
 </head>
 <body>
 
@@ -81,9 +89,12 @@
             <p class="feature-text">
               Consulta i volumi delle prestazioni ambulatoriali erogate: trasfusioni, terapie marziali endovena, infusione di plasmaderivati e salassi terapeutici.
             </p>
-            <div class="card-footer-btn">
-              <a href="statistiche-ambulatorio.html" class="nav-btn primary">Vedi le Statistiche</a>
-            </div>
+           <div class="card-footer-btn">
+  <button type="button" class="nav-btn secondary" onclick="apriAccordion('acc-statistiche')">
+    Vedi Dati Attività ↓
+  </button>
+</div>
+
           </div>
         </div>
 
@@ -293,6 +304,19 @@
             </details>
 
           </div>
+ <!-- ACCORDION 4: Statistiche Attività Ambulatoriale -->
+            <details class="custom-accordion" id="acc-statistiche">
+              <summary class="accordion-header">
+                <span>4. Statistiche Attività Ambulatoriale (2024 - 2026)</span>
+                <span class="accordion-icon">+</span>
+              </summary>
+              <div class="accordion-body">
+                <p style="margin-bottom: 14px; font-size: 14px; color: var(--text-secondary);">
+                  Clicca sulle singole colonne per esplorare il dettaglio annuale (2024–2026) e la suddivisione per tipologia di farmaco o prestazione.
+                </p>
+                <div id="container" style="width: 100%; height: 440px; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden;"></div>
+              </div>
+            </details>
 
           <!-- Bottone di ritorno alle card superiori -->
           <div class="back-top-wrapper">
@@ -301,7 +325,7 @@
 
         </div>
       </div>
-
+           
     </div>
   </section>
 </main>
@@ -353,6 +377,133 @@
       });
     });
   </script>
+<script>
+// Apertura esclusiva accordion + scorrimento fluido
+function apriAccordion(idTarget) {
+  document.querySelectorAll('.custom-accordion').forEach(acc => {
+    acc.open = (acc.id === idTarget);
+  });
+  const elemento = document.getElementById(idTarget);
+  if (elemento) {
+    elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+document.querySelectorAll('.custom-accordion').forEach(acc => {
+  acc.addEventListener('toggle', () => {
+    if (acc.open) {
+      document.querySelectorAll('.custom-accordion').forEach(altro => {
+        if (altro !== acc) altro.open = false;
+      });
+    }
+  });
+});
+
+// GRAFICO HIGHCHARTS DRILLDOWN ATTIVITÀ AMBULATORIALE
+var chart = Highcharts.chart('container', {
+    chart: {
+        type: 'column',
+        backgroundColor: '#ffffff',
+        borderRadius: 16,
+        spacingTop: 20,
+        spacingBottom: 20,
+        events: {
+            render: function () {
+                var c = this,
+                    title = c.title,
+                    series = c.series,
+                    total = 0;
+
+                series.forEach(function (s) {
+                    if (s.visible) {
+                        s.points.forEach(function (p) {
+                            total += p.y;
+                        });
+                    }
+                });
+
+                var formattedTotal = Highcharts.numberFormat(total, 0, ',', '.');
+                title.update({
+                    text: 'Attività Ambulatoriale Gen.-Set 2026' + '<br>' + '<span style="font-size: 11px; font-weight: normal; color: #666666;">(Totale procedure: ' + formattedTotal + ')</span>'
+                }, false);
+            }
+        }
+    },
+    title: {
+        useHTML: true,
+        text: 'Attività Ambulatoriale Gen.-Set 2026'
+    },
+    xAxis: { type: 'category' },
+    yAxis: { title: { text: 'Procedure' } },
+    legend: { enabled: false },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    return Highcharts.numberFormat(this.y, 0, ',', '.');
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Ambulatorio',
+        colorByPoint: true,
+        data: [
+            { name: 'Immunoglobuline', y: 1383, drilldown: 'Immunoglobuline' },
+            { name: 'Salasso', y: 334, drilldown: 'Salasso' },
+            { name: 'Ferro', y: 274, drilldown: 'Ferro' },
+            { name: 'Tranf.C.E', y: 220, drilldown: 'Tranf.C.E' },
+            { name: 'Plt', y: 24, drilldown: 'Plt' },
+            { name: 'Esami', y: 314, drilldown: 'esami' },
+            { name: 'Pretrattamenti', y: 41, drilldown: 'Pretrattamenti' },
+            { name: 'Cons.Med.T', y: 480, drilldown: 'Cons.Med.T' }
+        ]
+    }],
+    drilldown: {
+        breadcrumbs: { position: { align: 'right' } },
+        series: [
+            { name: 'Immunoglobuline', id: 'Immunoglobuline', data: [{ name: '2026', y: 1383, drilldown: 'det26' }, { name: '2025', y: 1517, drilldown: 'DET25' }, { name: '2024', y: 1661, drilldown: 'det24' }] },
+            { name: 'Salasso', id: 'Salasso', data: [{ name: '2026', y: 334 }, { name: '2025', y: 318 }, { name: '2024', y: 339 }] },
+            { name: 'Ferro', id: 'Ferro', data: [{ name: '2026', y: 274, drilldown: 'det26fe' }, { name: '2025', y: 288, drilldown: 'DET25fe' }, { name: '2024', y: 265, drilldown: 'det24fe' }] },
+            { name: 'Tranf.C.E', id: 'Tranf.C.E', data: [{ name: '2026', y: 220, drilldown: 'det26ce' }, { name: '2025', y: 236, drilldown: 'DET25ce' }, { name: '2024', y: 247, drilldown: 'det24ce' }] },
+            { name: 'Plt', id: 'Plt', data: [{ name: '2026', y: 24, drilldown: 'det26plt' }, { name: '2025', y: 2, drilldown: 'DET25plt' }, { name: '2024', y: 4, drilldown: 'det24plt' }] },
+            { name: 'esami', id: 'esami', data: [{ name: '2026', y: 314, drilldown: 'det26es' }, { name: '2025', y: 344, drilldown: 'det25es' }, { name: '2024', y: 320, drilldown: 'det24es' }] },
+            { name: 'Pretrattamenti', id: 'Pretrattamenti', data: [{ name: '2026', y: 41, drilldown: 'det26pre' }, { name: '2025', y: 32, drilldown: 'DET25pre' }, { name: '2024', y: 27, drilldown: 'det24pre' }] },
+            { name: 'Cons.Med.T', id: 'Cons.Med.T', data: [{ name: '2026', y: 480, drilldown: 'det26con' }, { name: '2025', y: 473, drilldown: 'DET25con' }, { name: '2024', y: 505, drilldown: 'det24con' }] },
+            { name: 'tipiIG', id: 'DET25', data: [['kiovig', 1491], ['Octaplan', 24], ['Ig Vena', 0]] },
+            { name: 'det24', id: 'det24', data: [['kiovig', 1309], ['Octaplan', 384], ['Ig Vena', 4]] },
+            { name: 'det26fe', id: 'det26fe', data: [['Ferinject 500', 260], ['Ferinject 1000', 6], ['Ferlixit', 8]] },
+            { name: 'det25fe', id: 'DET25fe', data: [['Ferinject 500', 269], ['Ferinject 1000', 11], ['Ferlixit', 8]] },
+            { name: 'det24', id: 'det24fe', data: [['Ferinject 500', 192], ['Ferinject 1000', 57], ['Ferlixit', 16]] },
+            { name: 'det26ce', id: 'det26ce', data: [['Pazienti', 144], ['Trasf 1 Sacca', 68], ['Trasf 2 Sacca', 76]] },
+            { name: 'DET25ce', id: 'DET25ce', data: [['Pazienti', 151], ['Trasf 1 Sacca', 66], ['Trasf 2 Sacca', 85]] },
+            { name: 'det24ce', id: 'det24ce', data: [['Pazienti', 145], ['Trasf 1 Sacca', 43], ['Trasf 2 Sacca', 102]] },
+            { name: 'det26es', id: 'det26es', data: [['Type Screen', 50], ['Prova Crociata', 125], ['Prelievo venoso', 137], ['Emocromo', 8]] },
+            { name: 'det25es', id: 'det25es', data: [['Type Screen', 80], ['Prova Crociata', 195], ['Prelievo venoso', 84], ['Emocromo', 5]] },
+            { name: 'det24es', id: 'det24es', data: [['Type Screen', 50], ['Prova Crociata', 125], ['Prelievo venoso', 137], ['Emocromo', 8]] },
+            { name: 'det26pre', id: 'det26pre', data: [['Trimeton', 17], ['Perfalgan', 22], ['Flebocortid', 2]] },
+            { name: 'DET25pre', id: 'DET25pre', data: [['Trimeton', 19], ['Perfalgan', 13], ['Flebocortid', 2]] },
+            { name: 'det24pre', id: 'det24pre', data: [['Trimeton', 18], ['Perfalgan', 8], ['Flebocortid', 0]] }
+        ]
+    }
+});
+
+// Ridimensionamento automatico all'apertura dell'accordion
+var containerElement = document.getElementById('container');
+if (containerElement && chart) {
+    var resizeObserver = new ResizeObserver(function(entries) {
+        for (var entry of entries) {
+            var width = entry.contentRect.width;
+            if (width > 0) {
+                chart.setSize(width, chart.chartHeight, false);
+            }
+        }
+    });
+    resizeObserver.observe(containerElement);
+}
+</script>
 
 </body>
 </html>

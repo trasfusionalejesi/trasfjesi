@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Appropriatezza Emoderivati - Trasfusionale Jesi</title>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+  .showcase-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 75%; /* Mostra la metà inferiore del video */
+  z-index: 0;
+}
+
+</style>
 </head>
 <body>
 
@@ -51,7 +63,11 @@
 <main class="main-content">
   <!-- Hero Section (senza bottoni) -->
   <section class="hero-section showcase">
-    <img src="../img-emoderivati-hero.jpg" alt="Gestione Emocomponenti ed Emoderivati Jesi" class="showcase-video">
+    <video class="showcase-video" autoplay loop muted playsinline poster="anteprima-hero.jpg">
+    <source src="../images/plasma.mp4" type="video/webm">
+    <!-- Facoltativo: tieni anche l'mp4 sotto se vuoi compatibilità con vecchi iPhone -->
+    <source src="nome-tuo-video.mp4" type="video/mp4">
+  </video>
     
     <div class="hero-container showcase-content">
       <span class="hero-badge">Patient Blood Management • Jesi</span>
@@ -97,9 +113,12 @@
               </div>
             </div>
 
-            <div class="card-footer-btn">
-              <a href="statistiche-emoderivati.html" class="nav-btn primary">Vedi le Statistiche</a>
-            </div>
+           <div class="card-footer-btn">
+  <button type="button" class="nav-btn primary" onclick="apriAccordionLab('acc-statistiche-lab')">
+    Vedi le Statistiche ↓
+  </button>
+</div>
+
           </div>
         </div>
 
@@ -209,6 +228,26 @@
           </div>
         </div>
       </div>
+<!-- ACCORDION STATISTICHE EMODRIVATI -->
+<div class="feature-card info-detail-box" style="padding: 0; overflow: hidden;">
+  <details class="custom-accordion" id="acc-statistiche-lab" style="border: none; border-radius: 0;">
+    <summary class="accordion-header" style="padding: clamp(20px, 3.5vw, 28px) clamp(24px, 4vw, 32px);">
+      <div>
+        <span class="section-badge" style="margin-bottom: 4px;">Dati Trasfusionali</span>
+        <h3 class="feature-title" style="margin: 0;">Statistiche Utilizzo Emocomponenti</h3>
+      </div>
+      <span class="accordion-icon">+</span>
+    </summary>
+
+    <div class="accordion-body">
+      <div id="container" style="width: 100%; height: 440px; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden;"></div>
+
+      <div class="back-top-wrapper">
+        <a href="#top" class="nav-btn secondary">↑ Torna alle schede sopra</a>
+      </div>
+    </div>
+  </details>
+</div>
 
     </div>
   </section>
@@ -233,6 +272,15 @@
       <p class="copyright">© 2026 Jesi UO - Servizio Immunotrasfusionale. Tutti i diritti riservati.</p>
     </div>
   </footer>
+<script>
+function apriAccordionLab(idTarget) {
+  const acc = document.getElementById(idTarget);
+  if (acc) {
+    acc.open = true;
+    acc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+</script>
 
 </body>
 </html>
