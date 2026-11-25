@@ -1556,5 +1556,49 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 </div>
 
 
+<script>
+  function apriModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina sotto
+    }
+  }
+
+  function chiudiModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Chiude cliccando fuori dal riquadro bianco
+  function chiudiModalSfondo(event, id) {
+    if (event.target.id === id) {
+      chiudiModal(id);
+    }
+  }
+
+  // Chiude premendo il tasto ESC sulla tastiera
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(m => {
+        m.classList.remove('active');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+<script>
+  function apriParlaConNoi() {
+    const details = document.getElementById('details-parla');
+    const card = document.getElementById('accordion-parla');
+    if (details && card) {
+      details.open = true;
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+</script>
 </body>
 </html>
