@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criteri Richiesta Emazie | Trasfusionale Jesi</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body id="top">
+
+<!-- Barra di Navigazione -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/logo.png" alt="Logo Trasfusionale Jesi" class="logo-img">
+      <span>Trasfusionale Jesi</span>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="donazione.html" class="nav-link">Donazione</a></li>
+      <li><a href="laboratorio.html" class="nav-link">Laboratorio</a></li>
+      <li><a href="emoderivati.html" class="nav-link active">Emoderivati</a></li>
+      <li><a href="ambulatorio.html" class="nav-link">Ambulatorio</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="contatti.html" class="nav-btn secondary">Contatti e Orari</a>
+      <a href="../index.html" class="nav-btn primary">Home</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <!-- Hero Section (senza bottoni) -->
+  <section class="hero-section showcase">
+    <video class="showcase-video" autoplay loop muted playsinline poster="anteprima-hero.jpg">
+    <source src="../images/plasma.webm" type="video/webm">
+    <!-- Facoltativo: tieni anche l'mp4 sotto se vuoi compatibilità con vecchi iPhone -->
+    <source src="nome-tuo-video.mp4" type="video/mp4">
+  </video>
+    
+    <div class="hero-container showcase-content">
+      <span class="hero-badge">Patient Blood Management • Jesi</span>
+      <h1>Appropriatezza Emoderivati</h1>
+      <p>
+        Criteri Richiesta Emazie | Trasfusionale Jesi
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenuto Principale -->
+  <section class="content-section">
+    <div class="content-container">
+
+      <!-- Card 1: Tabella Soglie di Emoglobina -->
+      <div class="feature-card info-detail-box">
+        <div class="feature-card-body">
+          <span class="section-badge">Appropriatezza Clinica</span>
+          <h2 class="detail-title">Soglie di Emoglobina (Hb) e Indicazioni Trasfusionali</h2>
+          <p class="feature-text">
+            La decisione di trasfondere Concentrati Eritrocitari (CE) deve basarsi sulla valutazione clinica complessiva del paziente (tolleranza all'anemia, comorbidità cardiovascolari, velocità di perdita ematica) e non esclusivamente sul valore numerico dell'emoglobina.
+          </p>
+
+          <div style="overflow-x: auto; margin-top: 20px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+              <thead>
+                <tr style="background: var(--background-alt); border-bottom: 2px solid var(--border-color);">
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Valore Hb</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Condizione Clinica</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Indicazione Trasfusionale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #dc2626;">&lt; 7,0 g/dL</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Paziente emodinamicamente stabile senza cardiopatia ischemica acuta</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Generalmente indicata</strong> (preferibile strategia <em>Single Unit</em>: 1 unità e rivalutazione clinica/Hb).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #d97706;">7,0 – 8,0 g/dL</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Chirurgia maggiore, sepsi, paziente onco-ematologico o cardiopatia stabile</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Da valutare</strong> in presenza di segni/sintomi di ipossia tissutale (tachicardia, ipotensione, dispnea, angina).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">8,0 – 9,0 g/dL</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Sindrome coronarica acuta (SCA), scompenso cardiaco severo, insufficienza respiratoria grave</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Indicata solo in contesti selezionati</strong> ad alto rischio ischemico o con perdita ematica attiva.</td>
+                </tr>
+                <tr>
+                  <td style="padding: 14px 16px; font-weight: 700; color: #16a34a;">&gt; 10,0 g/dL</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Assenza di emorragia massiva in atto</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Non indicata</strong> (rischio di sovraccarico circolatorio TACO superiore ai benefici).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+		<button type="button" class="nav-btn primary" onclick="apriModalEmazie()">
+  ⚡ Punti Chiave Rapidi
+</button>
+
+      </div>
+      <!-- Card 2: Emocomponenti di II Livello e Tempi di Evasione -->
+      <div class="feature-card info-detail-box">
+        <div class="feature-card-body">
+          <span class="section-badge">Modalità Operative SIMT</span>
+          <h2 class="detail-title">Emocomponenti di II Livello e Tempistiche di Richiesta</h2>
+
+          <div class="activity-columns">
+            <div class="activity-item">
+              <h4>Emazie Irradiate</h4>
+              <p>Indicate per prevenzione della TA-GvHD in pazienti immunodepressi severi, trapiantati di cellule staminali, trattati con analoghi delle purine, neonati pretermine e trasfusioni intrauterine/da consanguinei.</p>
+            </div>
+            <div class="activity-item">
+              <h4>Emazie Lavate</h4>
+              <p>Indicate esclusivamente in pazienti con storia di reazioni allergiche/anafilattiche severe ricorrenti alle proteine plasmatiche o deficit noto di IgA con anticorpi anti-IgA.</p>
+            </div>
+            <div class="activity-item">
+              <h4>Tempi e Campioni</h4>
+              <p><strong>Urgenza immediata:</strong> 0 Rh neg senza prove crociate (10–15 min).<br><strong>Urgenza differibile:</strong> entro 45–60 min.<br><strong>Programmata:</strong> invio richiesta e provetta EDTA entro le ore 12:00 del giorno precedente.</p>
+            </div>
+          </div>
+
+          <div class="back-top-wrapper" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="emoderivati.html" class="nav-btn primary">← Torna a Emoderivati</a>
+            <a href="criteri-plasma.html" class="nav-btn secondary">Criteri Plasma →</a>
+            <a href="criteri-piastrine.html" class="nav-btn secondary">Criteri Piastrine →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <p>&copy; 2026 Servizio Immunotrasfusionale - Ospedale "Carlo Urbani" di Jesi (AST Ancona).</p>
+    </div>
+  </div>
+</footer>
+<!-- MODAL PUNTI CHIAVE EMAZIE CONCENTRATE -->
+<div id="modal-emazie" onclick="chiudiModalEmazie()" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div onclick="event.stopPropagation()" style="background: #ffffff; border-radius: 20px; max-width: 600px; width: 100%; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2); border: 1px solid #e2e8f0; overflow: hidden;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 14px; border-bottom: 1px solid #e2e8f0;">
+      <div>
+        <span class="section-badge" style="margin-bottom: 4px;">Promemoria Rapido • Reparti</span>
+        <h3 style="margin: 0; font-size: 20px; color: #1e293b;">Emazie Concentrate: Punti Chiave</h3>
+      </div>
+      <button type="button" onclick="chiudiModalEmazie()" style="background: #f1f5f9; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; color: #475569;">✕</button>
+    </div>
+
+    <div style="padding: 20px 24px; max-height: 65vh; overflow-y: auto;">
+      <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; color: #475569;">
+        <li><strong style="color: #1e293b;">Soglie Rapide Hb:</strong> Indicata sotto <strong style="color: #1e293b;">7,0 g/dL</strong> nel paziente stabile; <strong style="color: #1e293b;">8,0–9,0 g/dL</strong> solo in sindrome coronarica acuta o cardiopatia severa sintomatica; <strong style="color: #1e293b;">non indicata sopra 10 g/dL</strong>.</li>
+        <li><strong style="color: #1e293b;">Strategia Single Unit:</strong> Nel paziente non emorragico trasfondere <strong style="color: #1e293b;">1 unità alla volta</strong>, rivalutando sintomi ed emocromo prima di un'eventuale seconda sacca.</li>
+        <li><strong style="color: #1e293b;">Emocomponenti II Livello:</strong> Richiedere <strong style="color: #1e293b;">Irradiate</strong> in immunodepressi severi/trapiantati/neonati e <strong style="color: #1e293b;">Lavate</strong> solo in anafilassi ricorrenti o deficit IgA con anti-IgA.</li>
+        <li><strong style="color: #1e293b;">Tempistiche e Campioni:</strong> Provette pre-trasfusionali correttamente identificate al letto del paziente (validità campione <strong style="color: #1e293b;">72 ore</strong> se trasfuso/gravida negli ultimi 3 mesi).</li>
+        <li><strong style="color: #1e293b;">Sicurezza al Letto:</strong> Infondere entro <strong style="color: #1e293b;">4 ore</strong> dall'uscita dal SIMT; non riscaldare impropriamente e non aggiungere farmaci nella sacca o nella linea di infusione.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 14px 24px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
+      <button type="button" class="nav-btn primary" onclick="chiudiModalEmazie()">Ho capito</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function apriModalEmazie() {
+  var m = document.getElementById('modal-emazie');
+  if (m) {
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function chiudiModalEmazie() {
+  var m = document.getElementById('modal-emazie');
+  if (m) {
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') chiudiModalEmazie();
+});
+</script>
+
+</body>
+</html>

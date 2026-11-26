@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criteri Richiesta Piastrine | Trasfusionale Jesi</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body id="top">
+
+<!-- Barra di Navigazione -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo">
+      <img src="../logo.png" alt="Logo Trasfusionale Jesi" class="logo-img">
+      <span>Trasfusionale Jesi</span>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="donazione.html" class="nav-link">Donazione</a></li>
+      <li><a href="laboratorio.html" class="nav-link">Laboratorio</a></li>
+      <li><a href="emoderivati.html" class="nav-link active">Emoderivati</a></li>
+      <li><a href="ambulatorio.html" class="nav-link">Ambulatorio</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="contatti.html" class="nav-btn secondary">Contatti e Orari</a>
+      <a href="../index.html" class="nav-btn primary">Home</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <!-- Hero Section (senza bottoni) -->
+  <section class="hero-section showcase">
+    <video class="showcase-video" autoplay loop muted playsinline poster="anteprima-hero.jpg">
+    <source src="../images/plasma.webm" type="video/webm">
+    <!-- Facoltativo: tieni anche l'mp4 sotto se vuoi compatibilità con vecchi iPhone -->
+    <source src="nome-tuo-video.mp4" type="video/mp4">
+  </video>
+    
+    <div class="hero-container showcase-content">
+      <span class="hero-badge">Patient Blood Management • Jesi</span>
+      <h1>Appropriatezza Emoderivati</h1>
+      <p>
+               Criteri Richiesta Piastrine | Trasfusionale Jesi
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenuto Principale -->
+  <section class="content-section">
+    <div class="content-container">
+
+      <!-- Card 1: Tabella Soglie Piastriniche -->
+      <div class="feature-card info-detail-box">
+        <div class="feature-card-body">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <span class="section-badge">Appropriatezza Clinica</span>
+              <h2 class="detail-title" style="margin-bottom: 0;">Soglie Piastriniche e Indicazioni Trasfusionali</h2>
+            </div>
+            <button type="button" class="nav-btn primary" onclick="apriModalPiastrine()">
+              ⚡ Punti Chiave Rapidi
+            </button>
+          </div>
+
+          <p class="feature-text">
+            La trasfusione di Concentrati Piastrinici (pool da buffy-coat o piastrinoaferesi da singolo donatore) è indicata per la prevenzione o il trattamento delle emorragie causate da piastrinopenia severa o disfunzione piastrinica. La dose terapeutica standard per adulto corrisponde a 1 unità terapeutica (pool o aferesi).
+          </p>
+
+          <div style="overflow-x: auto; margin-top: 20px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+              <thead>
+                <tr style="background: var(--background-alt); border-bottom: 2px solid var(--border-color);">
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Soglia Piastrine</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Condizione Clinica / Procedura</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Indicazione Trasfusionale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #dc2626;">&le; 10.000 / &mu;L</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Paziente stabile con ipoplasia midollare (es. chemioterapia, aplasia) senza fattori di rischio</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Profilassi indicata</strong> (riduzione del rischio di emorragia spontanea grave).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #d97706;">&le; 20.000 / &mu;L</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Paziente con febbre elevata (&gt; 38°C), sepsi, mucosite grave, CID o posizionamento CVC</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Profilassi indicata</strong> per aumentato consumo o rischio emorragico associato.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">&le; 50.000 / &mu;L</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Emorragia attiva significativa, chirurgia maggiore, biopsia epatica/renale, rachicentesi</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Indicata</strong> prima della procedura invasiva o per controllo del sanguinamento in atto.</td>
+                </tr>
+                <tr>
+                  <td style="padding: 14px 16px; font-weight: 700; color: #7c3aed;">&le; 100.000 / &mu;L</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Neurochirurgia, chirurgia oculare (segmento posteriore), emorragia cerebrale/politrauma</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);"><strong>Indicata</strong> per mantenere l'emostasi in distretti critici ad altissimo rischio.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+	        <!-- Card Intermedia: Trattamenti Specifici dei Concentrati Piastrinici -->
+      <div class="feature-card info-detail-box">
+        <div class="feature-card-body">
+          <span class="section-badge">Emocomponenti di II Livello • Richieste Mirate</span>
+          <h2 class="detail-title">Trattamenti Specifici dei Concentrati Piastrinici (PLT)</h2>
+          <p class="feature-text">
+            In presenza di particolari condizioni immunologiche o cliniche del ricevente, il reparto deve specificare sulla richiesta trasfusionale l'eventuale necessità di concentrati piastrinici sottoposti a trattamenti mirati:
+          </p>
+
+          <div style="overflow-x: auto; margin-top: 16px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+              <thead>
+                <tr style="background: var(--background-alt); border-bottom: 2px solid var(--border-color);">
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Trattamento Specifico</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Indicazioni Cliniche</th>
+                  <th style="padding: 14px 16px; font-weight: 700; color: var(--text-primary);">Note Operative SIMT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">PLT Irradiate</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Trapianto CSE, immunodepressione severa, linfoma di Hodgkin, analoghi delle purine, neonati pretermine, donazione da consanguinei</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);">Prevenzione della <strong>TA-GvHD</strong> mediante inattivazione dei linfociti T residui (25–50 Gy).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">PLT HLA-Compatibili (Aferesi)</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Refrattarietà piastrinica immunologica documentata (anticorpi anti-HLA / anti-HPA)</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);">Da concordare preventivamente con il medico trasfusionista per selezione donatore tipizzato.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">PLT Lavate / Deplasmatizzate</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Reazioni allergiche/anafilattiche severe ricorrenti o deficit di IgA con anticorpi anti-IgA</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);">Riduzione della resa piastrinica e scadenza ravvicinata dopo il lavaggio (infondere rapidamente).</td>
+                </tr>
+                <tr>
+                  <td style="padding: 14px 16px; font-weight: 700; color: #2563eb;">PLT in Soluzione Additiva (PAS) / Patogeno-Ridotte</td>
+                  <td style="padding: 14px 16px; color: var(--text-secondary);">Riduzione del carico plasmatico, prevenzione reazioni febbrili/allergiche e sicurezza microbiologica</td>
+                  <td style="padding: 14px 16px; color: var(--text-primary);">La riduzione dei patogeni inattiva anche i linfociti T (sostituisce l'irradiazione nei protocolli autorizzati).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Modalità Operative SIMT e Controindicazioni -->
+      <div class="feature-card info-detail-box">
+        <div class="feature-card-body">
+          <span class="section-badge">Protocollo SIMT Jesi</span>
+          <h2 class="detail-title">Conservazione, Somministrazione e Controindicazioni</h2>
+
+          <div class="activity-columns">
+            <div class="activity-item">
+              <h4>1. Conservazione a +20°C / +24°C</h4>
+              <p>Le piastrine sono conservate in agitazione continua a <strong>+20°C/+24°C</strong> (validità massima <strong>5 giorni</strong>). <strong>Non mettere mai in frigorifero</strong> e infondere subito dopo il ritiro dal SIMT (in circa 20–30 minuti).</p>
+            </div>
+            <div class="activity-item">
+              <h4>2. Compatibilità AB0 / Rh</h4>
+              <p>Preferire concentrati piastrinici <strong>AB0-compatibili</strong>. Nelle donne in età fertile Rh(D) negative che ricevono piastrine da donatore Rh(D) positivo va eseguita <strong>immunoprofilassi Anti-D</strong>.</p>
+            </div>
+            <div class="activity-item">
+              <h4>3. Quando sono Controindicate</h4>
+              <p>Controindicate nella <strong>Porpora Trombotica Trombocitopenica (PTT)</strong> e nella <strong>Trombocitopenia Indotta da Eparina (HIT)</strong> (salvo emorragia pericolosa per la vita), nonché nella ITP senza sanguinamento grave.</p>
+            </div>
+          </div>
+
+          <div class="back-top-wrapper" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="criteri-emazie.html" class="nav-btn secondary">← Criteri Emazie</a>
+            <a href="criteri-plasma.html" class="nav-btn secondary">← Criteri PLASMASAFE</a>
+            <a href="emoderivati.html" class="nav-btn primary">Torna a Emoderivati</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+      <p>&copy; 2026 Servizio Immunotrasfusionale - Ospedale "Carlo Urbani" di Jesi (AST Ancona).</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL PUNTI CHIAVE PIASTRINE -->
+<div id="modal-piastrine" onclick="chiudiModalPiastrine()" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+  <div onclick="event.stopPropagation()" style="background: #ffffff; border-radius: 20px; max-width: 600px; width: 100%; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2); border: 1px solid #e2e8f0; overflow: hidden;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 14px; border-bottom: 1px solid #e2e8f0;">
+      <div>
+        <span class="section-badge" style="margin-bottom: 4px;">Promemoria Rapido • Reparti</span>
+        <h3 style="margin: 0; font-size: 20px; color: #1e293b;">Piastrine: Punti Chiave</h3>
+      </div>
+      <button type="button" onclick="chiudiModalPiastrine()" style="background: #f1f5f9; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; color: #475569;">✕</button>
+    </div>
+
+    <div style="padding: 20px 24px; max-height: 65vh; overflow-y: auto;">
+      <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; color: #475569;">
+        <li><strong style="color: #1e293b;">Soglie Rapide:</strong> Profilassi a <strong style="color: #1e293b;">&le; 10.000/&mu;L</strong> (stabile) o <strong style="color: #1e293b;">&le; 20.000/&mu;L</strong> (febbre/sepsi/CVC); <strong style="color: #1e293b;">&le; 50.000/&mu;L</strong> per chirurgia/emorragia attiva; <strong style="color: #1e293b;">&le; 100.000/&mu;L</strong> per neurochirurgia/occhio.</li>
+        <li><strong style="color: #1e293b;">Non Refrigerare Mai:</strong> Vanno conservate a <strong style="color: #1e293b;">+20°C/+24°C</strong> e trasfuse immediatamente dopo il ritiro dal SIMT.</li>
+        <li><strong style="color: #1e293b;">Controindicazioni Assolute:</strong> Evitare in <strong style="color: #1e293b;">PTT</strong> e <strong style="color: #1e293b;">HIT</strong> (rischio di aggravamento trombotico), salvo emorragia critica.</li>
+        <li><strong style="color: #1e293b;">Profilassi Anti-D:</strong> Necessaria nelle pazienti Rh(D) negative in età fertile che ricevono piastrine Rh(D) positive.</li>
+        <li><strong style="color: #1e293b;">Verifica Efficacia:</strong> Controllare la conta piastrinica post-trasfusionale (10–60 minuti dopo l'infusione) in caso di sospetta refrattarietà.</li>
+      </ul>
+    </div>
+
+    <div style="padding: 14px 24px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
+      <button type="button" class="nav-btn primary" onclick="chiudiModalPiastrine()">Ho capito</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function apriModalPiastrine() {
+  var m = document.getElementById('modal-piastrine');
+  if (m) {
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function chiudiModalPiastrine() {
+  var m = document.getElementById('modal-piastrine');
+  if (m) {
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') chiudiModalPiastrine();
+});
+</script>
+
+</body>
+</html>
